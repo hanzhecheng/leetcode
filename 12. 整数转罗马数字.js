@@ -25,25 +25,28 @@ C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。
  */
 var intToRoman = function(num) {
     if(num<1||num>3999)return ''
-    let dmap={
-        1000:"M",
-        900:"CM",
-        500:"D",
-        400:"CD",
-        100:"C",
-        90:"XC",
-        50:"L",
-        40:"XL",
-        10:"X",
-        9:"IX",
-        5:"V",
-        4:"IV",
-        1:"I"
-    }
+    let dmap=new Map(
+        [
+            [1000,"M"],
+            [900,"CM"],
+            [500,"D"],
+            [400,"CD"],
+            [100,"C"],
+            [90,"XC"],
+            [50,"L"],
+            [40,"XL"],
+            [10,"X"],
+            [9,"IX"],
+            [5,"V"],
+            [4,"IV"],
+            [1,"I"]
+        ]
+    )
+       
     //object会默认从小到大排key，后期可改为map
-    let res=Object.keys(dmap).sort((a,b)=>b-a).reduce((origin,item)=>{
+    let res=[...dmap.keys()].reduce((origin,item)=>{
         while(num>=item){
-            origin+=dmap[item]
+            origin+=dmap.get(item)
             num-=item
         }
         return origin
